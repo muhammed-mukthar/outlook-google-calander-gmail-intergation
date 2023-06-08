@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 
 import axios from "axios";
-import EmailDetails from "./EmailDetails";
-const EmailList = () => {
+import EmailOutlookDetails from "./EmailOutlookDetails";
+const EmailOutlook = () => {
   const [emails, setEmails] = useState([]);
   const [emailDetails, setEmailDetails] = useState(false);
 
   const handleGetEmails = () => {
     axios
-      .get("http://localhost:4000/gmail/emails")
+      .get("http://localhost:4000/outlook/sent/emails")
       .then((data) => {
         console.log(data, "this is data");
         setEmails(data.data);
@@ -22,10 +22,10 @@ const EmailList = () => {
   }, []);
 
   const handleOnClick=(data)=>{
-setEmailDetails(data.emailId)  }
+setEmailDetails(data.id)  }
   return (
     <div>
-      {emailDetails ? <EmailDetails emailDetail={emailDetails}/> : ""}
+      {emailDetails ? <EmailOutlookDetails emailDetail={emailDetails}/> : ""}
       <h1>List of Emails</h1>
       <button onClick={handleGetEmails}>Get Emails</button>
       <ul>
@@ -39,4 +39,4 @@ setEmailDetails(data.emailId)  }
   );
 };
 
-export default EmailList;
+export default EmailOutlook;
